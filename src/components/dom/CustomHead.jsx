@@ -1,9 +1,8 @@
-import NextHead from 'next/head';
 import { NextSeo } from 'next-seo';
+import NextHead from 'next/head';
 import PropTypes from 'prop-types';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL;
-const OG_IMAGE = SITE_URL ? `${SITE_URL}/og.png` : '/og.png';
 
 const getSchema = () => ({
   '@context': 'http://schema.org',
@@ -14,7 +13,6 @@ const getSchema = () => ({
   telephone: '+213775512935',
   sameAs: ['https://github.com/S7OW', 'https://dz.linkedin.com/in/amine-azrou', 'https://instagram.com/x0_4u'],
   ...(SITE_URL ? { url: SITE_URL } : {}),
-  image: SITE_URL ? OG_IMAGE : undefined,
   address: { '@type': 'PostalAddress', addressCountry: 'DZ' },
 });
 
@@ -38,8 +36,6 @@ function CustomHead({ title = '', description, keywords = [] }) {
         <title>{title}</title>
 
         {/* OpenGraph Meta Tags */}
-        <meta property="og:image" content={OG_IMAGE} />
-        <meta property="og:image:alt" content={`Portfolio of Amine Azrou — ${title}`} />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Amine Azrou Portfolio" />
         <meta property="og:title" content={title} />
@@ -50,7 +46,6 @@ function CustomHead({ title = '', description, keywords = [] }) {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content={OG_IMAGE} />
 
         {/* Favicons */}
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
