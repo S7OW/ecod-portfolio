@@ -1,0 +1,6 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+# Set NEXT_PUBLIC_SITE_URL to your deployed site domain before deployment.
