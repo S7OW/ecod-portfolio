@@ -1,5 +1,3 @@
-![giats.me cover](/public/og.png)
-
 # giats.me — Personal Portfolio Website
 
 This is the **original source code** for [giats.me](https://giats.me), the personal portfolio website of **Evangelos Giatsidis**.
