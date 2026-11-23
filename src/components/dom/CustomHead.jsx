@@ -78,4 +78,8 @@ CustomHead.propTypes = {
   keywords: PropTypes.arrayOf(PropTypes.string),
 };
 
+CustomHead.defaultProps = {
+  keywords: [],
+};
+
 export default CustomHead;

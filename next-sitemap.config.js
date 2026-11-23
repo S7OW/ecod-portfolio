@@ -1,6 +1,8 @@
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+  || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
+
 module.exports = {
-  // Set NEXT_PUBLIC_SITE_URL to the deployed site origin before generating SEO files.
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL,
+  siteUrl,
   generateRobotsTxt: true,
   generateIndexSitemap: false,
 };

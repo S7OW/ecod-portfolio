@@ -82,11 +82,7 @@ function Page({ id }) {
     () => ({
       title: `${currentProject.title} | Amine Azrou`,
       description: `${currentProject.title} by Amine Azrou.`,
-      keywords: [
-        `${currentProject.title} project`,
-        `${currentProject.title} ${currentProject.category}`,
-        `Amine Azrou ${currentProject.title}`,
-      ],
+      keywords: [`${currentProject.title} project`, `${currentProject.title} ${currentProject.category}`, `Amine Azrou ${currentProject.title}`],
     }),
     [currentProject],
   );

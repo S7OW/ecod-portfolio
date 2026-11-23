@@ -65,7 +65,9 @@ function About() {
         </div>
         {!isMobile ? renderImageContainer() : null}
         <div className={clsx(styles.descWrapperBottom)}>
-          <div className={clsx(styles.buttonContainer)}><ButtonLink href="/about" label="ABOUT ME" /></div>
+          <div className={clsx(styles.buttonContainer)}>
+            <ButtonLink href="/about" label="ABOUT ME" />
+          </div>
         </div>
       </div>
     </section>

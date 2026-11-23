@@ -53,10 +53,17 @@ const performMoves = (rectangles, gridWidth, gridHeight) => {
         moveRect(rect, direction, gridWidth, gridHeight);
         const newPosition = { ...rect };
 
-        const { x, y } = { x: parseFloat(newPosition.x), y: parseFloat(newPosition.y) };
+        const { x, y } = {
+          x: parseFloat(newPosition.x),
+          y: parseFloat(newPosition.y),
+        };
         if (x > -0.5 && x < 90 && y > -0.5 && y < 90 && !isPositionOccupied(rectangles, newPosition)) {
           validMove = true;
-          validMoves.push({ index: newPosition.index, x: newPosition.x, y: newPosition.y });
+          validMoves.push({
+            index: newPosition.index,
+            x: newPosition.x,
+            y: newPosition.y,
+          });
           Object.assign(rectangles[newPosition.index], newPosition);
         } else {
           Object.assign(rect, originalPosition);
@@ -228,11 +235,7 @@ function Home() {
           <h2 className="h2">Frontend</h2>
           <h2 className={clsx('h2', 'bold')}>Cisco Networking</h2>
         </div>
-        {!isMobile && (
-          <h6 className={clsx('h6', styles.rightContainer)}>
-            I&apos;m Amine Azrou, a beginner self-taught Frontend Developer and Cisco Network Designer based in Algeria.
-          </h6>
-        )}
+        {!isMobile && <h6 className={clsx('h6', styles.rightContainer)}>I&apos;m Amine Azrou, a beginner self-taught Frontend Developer and Cisco Network Designer based in Algeria.</h6>}
       </div>
 
       <div className={styles.bottomContainer}>

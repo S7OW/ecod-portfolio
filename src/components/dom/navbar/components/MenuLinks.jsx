@@ -12,7 +12,12 @@ import { useRouter } from 'next/router';
 import { useStore } from '@src/store';
 
 function MenuLinks() {
-  const timeline = useRef(gsap.timeline({ paused: true, defaults: { duration: 0.92, ease: 'expo.inOut' } }));
+  const timeline = useRef(
+    gsap.timeline({
+      paused: true,
+      defaults: { duration: 0.92, ease: 'expo.inOut' },
+    }),
+  );
   const isMobile = useIsMobile();
   const [isMenuOpen, setIsMenuOpen, lenis, isLoading] = useStore((state) => [state.isMenuOpen, state.setIsMenuOpen, state.lenis, state.isLoading]);
   const menuRef = useRef();
@@ -32,10 +37,30 @@ function MenuLinks() {
       .to(refs.menuRef.current, { autoAlpha: 1, stagger: 0.01, pointerEvents: 'auto' }, 0)
       .to(fluidCanvas, { duration: 0, opacity: 0 }, 0)
       .to(refs.menuLinksItemsRef.current, { x: 0, stagger: 0.016, pointerEvents: 'auto' }, 0)
-      .to('main', { borderRadius: '1.3888888889vw', border: '2px solid #f0f4f1', scale: 0.9, pointerEvents: 'none', left: '-40vw' }, 0)
+      .to(
+        'main',
+        {
+          borderRadius: '1.3888888889vw',
+          border: '2px solid #f0f4f1',
+          scale: 0.9,
+          pointerEvents: 'none',
+          left: '-40vw',
+        },
+        0,
+      )
       .to(layout, { opacity: isMobile ? 0.05 : 0.3, height: '90svh' }, 0)
       .to(scrollbar, { opacity: 0, right: '46vw', scale: 0.9 }, 0)
-      .to(header, { autoAlpha: 0, left: '-40vw', top: isMobile ? '6vw' : '3vw', scale: 0.9, overwrite: true }, 0);
+      .to(
+        header,
+        {
+          autoAlpha: 0,
+          left: '-40vw',
+          top: isMobile ? '6vw' : '3vw',
+          scale: 0.9,
+          overwrite: true,
+        },
+        0,
+      );
   };
 
   useEffect(() => {
@@ -161,26 +186,28 @@ function MenuLinks() {
             </Link>
           </div>
         </div>
-        {footerLinks.length > 0 && <div
-          ref={(el) => {
-            menuLinksItemsRef.current[menuLinks.length + projectsLinks.length + 4] = el;
-          }}
-          className={styles.menuList}
-        >
-          {footerLinks.map((link, index) => (
-            <div
-              ref={(el) => {
-                menuLinksItemsRef.current[menuLinks.length + projectsLinks.length + index + 4] = el;
-              }}
-              key={link.title}
-              className={styles.menuListItem}
-            >
-              <Link aria-label={`Find me on ${link.title}`} target="_blank" rel="noopener noreferrer" scroll={false} href={link.href}>
-                <span>{link.title}</span>
-              </Link>
-            </div>
-          ))}
-        </div>}
+        {footerLinks.length > 0 && (
+          <div
+            ref={(el) => {
+              menuLinksItemsRef.current[menuLinks.length + projectsLinks.length + 4] = el;
+            }}
+            className={styles.menuList}
+          >
+            {footerLinks.map((link, index) => (
+              <div
+                ref={(el) => {
+                  menuLinksItemsRef.current[menuLinks.length + projectsLinks.length + index + 4] = el;
+                }}
+                key={link.title}
+                className={styles.menuListItem}
+              >
+                <Link aria-label={`Find me on ${link.title}`} target="_blank" rel="noopener noreferrer" scroll={false} href={link.href}>
+                  <span>{link.title}</span>
+                </Link>
+              </div>
+            ))}
+          </div>
+        )}
         <button
           type="button"
           onClick={() => {

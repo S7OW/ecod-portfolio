@@ -14,10 +14,7 @@ function PreFooter() {
       return undefined;
     }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
-      { root: document.querySelector('main'), threshold: 0.01 },
-    );
+    const observer = new IntersectionObserver(([entry]) => setIsVisible(entry.isIntersecting), { root: document.querySelector('main'), threshold: 0.01 });
     observer.observe(section);
 
     return () => observer.disconnect();
@@ -36,9 +33,7 @@ function PreFooter() {
         </div>
       </div>
 
-      <div className={styles.canvas}>
-        {isVisible && <FruitNinja />}
-      </div>
+      <div className={styles.canvas}>{isVisible && <FruitNinja />}</div>
     </section>
   );
 }
