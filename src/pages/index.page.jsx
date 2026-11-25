@@ -6,8 +6,8 @@ import Projects from '@src/pages/components/projects/Index';
 import CustomHead from '@src/components/dom/CustomHead';
 
 const seo = {
-  title: 'Amine Azrou | Frontend Developer & Cisco Network Designer',
-  description: 'Portfolio of Amine Azrou, a beginner self-taught Frontend Developer and Cisco Network Designer based in Algeria.',
+  title: 'ECOD | Frontend Dev & Network Design',
+  description: 'Portfolio of Amine Azrou (ECOD), a beginner self-taught Frontend Developer and Cisco Network Designer based in Algeria.',
   keywords: [
     'Amine Azrou',
     'Frontend',
