@@ -60,8 +60,8 @@ function About() {
           <AppearTitle>
             <div className="p-l">“I’m focused on learning, creating, and constantly refining my craft.</div>
             <div className="p-l">I believe in taking things one step at a time, staying curious,</div>
-            <div className="p-l">and building things that speak for themselves. There’s always</div>
-            <div className="p-l">room to grow, and that’s what keeps me moving forward.”</div>
+            <div className="p-l">and building things that speak for themselves.</div>
+            <div className="p-l">There’s always room to grow, and that’s what keeps me moving forward.”</div>
           </AppearTitle>
         </div>
         {!isMobile ? renderImageContainer() : null}
