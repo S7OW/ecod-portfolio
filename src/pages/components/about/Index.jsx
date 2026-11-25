@@ -9,6 +9,10 @@ import { useIsomorphicLayoutEffect } from '@src/hooks/useIsomorphicLayoutEffect'
 import { useRef } from 'react';
 
 function About() {
+  const profileDescription = [
+    'A passionate front-end developer from Algeria. With a strong eye for design and dedication to creating seamless user experiences.',
+    'I specialize in bringing web applications to life with clean and efficient code.',
+  ].join(' ');
   const isMobile = useIsMobile();
   const rootRef = useRef();
   const animatedImageRef = useRef();
@@ -46,6 +50,8 @@ function About() {
     </div>
   );
 
+  const renderProfileDescription = () => <p className={clsx('h6', styles.profileDescription)}>{profileDescription}</p>;
+
   return (
     <section ref={rootRef} className={styles.root}>
       <div className={clsx(styles.nameContainer, 'layout-block-inner')}>
@@ -56,15 +62,17 @@ function About() {
 
       <div className={clsx(styles.container, 'layout-grid-inner')}>
         {isMobile ? renderImageContainer() : null}
+        {isMobile ? renderProfileDescription() : null}
         <div className={clsx(styles.descWrapper)} ref={animatedImageRef}>
           <AppearTitle>
-            <div className="p-l">“I’m focused on learning, creating, and constantly refining my craft.</div>
-            <div className="p-l">I believe in taking things one step at a time, staying curious,</div>
-            <div className="p-l">and building things that speak for themselves.</div>
-            <div className="p-l">There’s always room to grow, and that’s what keeps me moving forward.”</div>
+            <div className="p-l">My solo learning journey as a self-taught</div>
+            <div className="p-l">developer empowers me to solve problems</div>
+            <div className="p-l">creatively and efficiently, supporting the</div>
+            <div className="p-l">successful completion of your project goals.</div>
           </AppearTitle>
         </div>
         {!isMobile ? renderImageContainer() : null}
+        {!isMobile ? renderProfileDescription() : null}
         <div className={clsx(styles.descWrapperBottom)}>
           <div className={clsx(styles.buttonContainer)}>
             <ButtonLink href="/about" label="ABOUT ME" />

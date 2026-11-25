@@ -234,13 +234,12 @@ function Home() {
     <section ref={rootRef} className={clsx(styles.root)}>
       <div className={clsx(styles.topContainer, 'layout-grid-inner')}>
         <div className={styles.leftContainer}>
-          <h1 className="h2">Frontend Developer</h1>
-          <h2 className={clsx('h2', 'bold')}>Cisco Network Designer</h2>
+          <h1 className="h2">Remarkable</h1>
+          <h2 className={clsx('h2', 'bold')}>Virtual Experiences</h2>
         </div>
         {!isMobile && (
           <p className={clsx('h6', styles.rightContainer)}>
-            I&apos;m Amine Azrou (ECOD), a self-taught frontend developer in Algeria and Cisco Network Designer. I build responsive React and JavaScript interfaces and explore network topology design
-            with Cisco Packet Tracer.
+            With few years of experience, I create immersive digital enviroments that elevate your virtual presence. Join me in redefining digital interaction
           </p>
         )}
       </div>
@@ -260,10 +259,7 @@ function Home() {
       </div>
       {isMobile && (
         <div className={styles.rightContainerMobile}>
-          <p className="h6">
-            I&apos;m Amine Azrou (ECOD), a self-taught frontend developer in Algeria and Cisco Network Designer. I build responsive React and JavaScript interfaces and explore network topology design
-            with Cisco Packet Tracer.
-          </p>
+          <p className="h6">With few years of experience, I create immersive digital enviroments that elevate your virtual presence. Join me in redefining digital interaction</p>
         </div>
       )}
 

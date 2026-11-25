@@ -65,12 +65,30 @@ function useFruitSpawner(viewport, textures, slicedTextures, isMobile) {
 function FruitNinja() {
   const { viewport } = useThree();
   const isMobile = useIsMobile();
-  const textures = useTexture(['/logos/git.webp', '/logos/github.svg', '/logos/typescript.webp', '/logos/docker.webp', '/logos/vscode.webp']);
+  const textures = useTexture([
+    '/logos/bug.webp',
+    '/logos/docker.webp',
+    '/logos/git.webp',
+    '/logos/github.svg',
+    '/logos/gsap.webp',
+    '/logos/nodejs.webp',
+    '/logos/npm.webp',
+    '/logos/react.webp',
+    '/logos/threejs.webp',
+    '/logos/typescript.webp',
+    '/logos/vscode.webp',
+  ]);
   const slicedTextures = useTexture([
+    '/logos/sliced/bugSliced.webp',
+    '/logos/sliced/dockerSliced.webp',
     '/logos/sliced/gitSliced.webp',
     '/logos/sliced/githubSliced.svg',
+    '/logos/sliced/gsapSliced.webp',
+    '/logos/sliced/nodejsSliced.webp',
+    '/logos/sliced/npmSliced.webp',
+    '/logos/sliced/reactSliced.webp',
+    '/logos/sliced/threejsSliced.webp',
     '/logos/sliced/typescriptSliced.webp',
-    '/logos/sliced/dockerSliced.webp',
     '/logos/sliced/vscodeSliced.webp',
   ]);
   const fruits = useFruitSpawner(viewport, textures, slicedTextures, isMobile);

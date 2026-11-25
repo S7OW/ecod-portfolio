@@ -24,12 +24,9 @@ function PreFooter() {
     <section ref={sectionRef} className={clsx(styles.root, 'layout-block-inner')}>
       <div className={styles.textsContainer}>
         <div>
-          <h2 className="h1">Let&apos;s slice through</h2>
-          <h2 className="h1"> your next challenge</h2>
-          <h2 className="h1"> together!</h2>
-        </div>
-        <div>
-          <h6 className="h6">Frontend development & Cisco network design</h6>
+          <h2 className="h1">Start your project</h2>
+          <h2 className="h1">with a trusted partner</h2>
+          <h2 className="h1">now!</h2>
         </div>
       </div>
 

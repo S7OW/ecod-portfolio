@@ -52,8 +52,16 @@
       }
 
       .buttonContainer {
-        margin: var(--layout-columns-gap) auto 0;
+        margin: var(--layout-columns-gap) 0 0;
         width: max-content;
+      }
+    }
+    .profileDescription {
+      grid-column: 9 / 17;
+      margin-top: var(--layout-columns-gap);
+
+      @include mobile {
+        grid-column: 1 / 7;
       }
     }
     .imageContainer {
