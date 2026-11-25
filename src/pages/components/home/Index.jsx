@@ -1,12 +1,14 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
 
-import FloatingMeshes from '@src/pages/components/home/components/floatingMeshes/Index';
 import InfiniteText from '@src/components/animationComponents/infiniteText/Index';
 import clsx from 'clsx';
 import { gsap } from 'gsap';
+import dynamic from 'next/dynamic';
 import styles from '@src/pages/components/home/styles/home.module.scss';
 import useIsMobile from '@src/hooks/useIsMobile';
 import { useIsomorphicLayoutEffect } from '@src/hooks/useIsomorphicLayoutEffect';
+
+const FloatingMeshes = dynamic(() => import('@src/pages/components/home/components/floatingMeshes/Index'), { ssr: false });
 
 const moveRect = (rect, direction, gridWidth, gridHeight) => {
   const moveMap = {
@@ -232,10 +234,15 @@ function Home() {
     <section ref={rootRef} className={clsx(styles.root)}>
       <div className={clsx(styles.topContainer, 'layout-grid-inner')}>
         <div className={styles.leftContainer}>
-          <h2 className="h2">Frontend</h2>
-          <h2 className={clsx('h2', 'bold')}>Cisco Networking</h2>
+          <h1 className="h2">Frontend Developer</h1>
+          <h2 className={clsx('h2', 'bold')}>Cisco Network Designer</h2>
         </div>
-        {!isMobile && <h6 className={clsx('h6', styles.rightContainer)}>I&apos;m Amine Azrou, a beginner self-taught Frontend Developer and Cisco Network Designer based in Algeria.</h6>}
+        {!isMobile && (
+          <p className={clsx('h6', styles.rightContainer)}>
+            I&apos;m Amine Azrou (ECOD), a self-taught frontend developer in Algeria and Cisco Network Designer. I build responsive React and JavaScript interfaces and explore network topology design
+            with Cisco Packet Tracer.
+          </p>
+        )}
       </div>
 
       <div className={styles.bottomContainer}>
@@ -253,7 +260,10 @@ function Home() {
       </div>
       {isMobile && (
         <div className={styles.rightContainerMobile}>
-          <h6 className="h6">I&apos;m Amine Azrou, a beginner self-taught Frontend Developer and Cisco Network Designer based in Algeria.</h6>
+          <p className="h6">
+            I&apos;m Amine Azrou (ECOD), a self-taught frontend developer in Algeria and Cisco Network Designer. I build responsive React and JavaScript interfaces and explore network topology design
+            with Cisco Packet Tracer.
+          </p>
         </div>
       )}
 

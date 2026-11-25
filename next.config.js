@@ -2,10 +2,12 @@
 const nextConfig = {
   // Allow the development server's assets to be loaded by the other device
   // on the local network (the browser reported this client as 192.168.8.12).
-  allowedDevOrigins: ['192.168.8.12',
+  allowedDevOrigins: [
+    '192.168.8.12',
     '192.168.8.16',
     '127.0.0.1',
-    '192.168.8.1'],
+    '192.168.8.1',
+  ],
   pageExtensions: ['page.jsx'],
   experimental: {
     // optimizeCss: true,
@@ -60,11 +62,6 @@ const nextConfig = {
   redirects: async () => [
     {
       source: '/home',
-      destination: '/',
-      permanent: true,
-    },
-    {
-      source: '/404',
       destination: '/',
       permanent: true,
     },

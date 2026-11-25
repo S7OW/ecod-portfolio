@@ -12,7 +12,7 @@ function ProjectImages({ project }) {
   const isMobile = useIsMobile();
 
   const renderMediaContainer = useCallback(
-    ({ tag, src, isRight, index, title }) => {
+    ({ tag, src, isRight, index, title, alt }) => {
       if (tag === 'video') {
         return (
           <div className={styles.videoContainer}>
@@ -24,22 +24,27 @@ function ProjectImages({ project }) {
       }
       if (tag === 'small') {
         return (
-          <div style={{ gridColumn: !isMobile ? (!isRight ? '1 / 9' : ' 9 / 17') : !isRight ? '1 / 4' : ' 4 / 7' }} className={styles.imageContainer}>
-            <Image priority sizes="100%" src={src} fill alt={`Image-${title}-${index}`} />
+          <div
+            style={{
+              gridColumn: !isMobile ? (!isRight ? '1 / 9' : ' 9 / 17') : !isRight ? '1 / 4' : ' 4 / 7',
+            }}
+            className={styles.imageContainer}
+          >
+            <Image priority={index === 0} sizes="100vw" src={src} fill alt={alt || `${title} project image ${index + 1}`} />
           </div>
         );
       }
       if (tag === 'big') {
         return (
           <div className={styles.bigContainer}>
-            <Image priority sizes="100%" src={src} fill alt={`Image-${title}-${index}`} />
+            <Image priority={index === 0} sizes="100vw" src={src} fill alt={alt || `${title} project image ${index + 1}`} />
           </div>
         );
       }
       if (tag === 'medium') {
         return (
           <div className={styles.mediumContainer}>
-            <Image priority sizes="100%" src={src} fill alt={`Image-${title}-${index}`} />
+            <Image priority={index === 0} sizes="100vw" src={src} fill alt={alt || `${title} project image ${index + 1}`} />
           </div>
         );
       }

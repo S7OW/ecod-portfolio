@@ -61,14 +61,14 @@ function Projects() {
   return (
     <>
       <section className={clsx(styles.titleContainer, 'layout-grid-inner')}>
-        <h1 className={clsx(styles.title, 'h1')}>
+        <h2 className={clsx(styles.title, 'h1')}>
           <AppearByWords>Selected Projects</AppearByWords>
-        </h1>
+        </h2>
       </section>
       <section ref={rootRef} className={clsx(styles.root, 'layout-block-inner')}>
         <div className={styles.innerContainer}>
           {newProjects.map((project, index) => (
-            <Link aria-label={`Go ${project.title}`} id={project.id} key={project.id} scroll={false} href={project.link} className={clsx(styles.card)}>
+            <Link aria-label={`View ${project.title} project`} id={project.id} key={project.id} scroll={false} href={project.link} className={clsx(styles.card)}>
               <div
                 style={
                   !isMobile
@@ -89,12 +89,19 @@ function Projects() {
                     <h3 className="h3">{project.title}</h3>
                   </div>
                   <div className={styles.imageContainer}>
-                    <Image src={project.img} fill sizes="100%" alt={project.title} />
+                    <Image src={project.img} fill sizes="100%" alt={project.imageAlt} />
                   </div>
                 </div>
               </div>
               <div ref={(el) => (projectRefs.current[index] = el)} className={styles.canvas}>
-                <Image priority className={index === 0 ? styles.firstCard : index === newProjects.length - 1 ? styles.lastCard : undefined} src={project.img} fill sizes="100%" alt={project.title} />
+                <Image
+                  priority={index === 0}
+                  className={index === 0 ? styles.firstCard : index === newProjects.length - 1 ? styles.lastCard : undefined}
+                  src={project.img}
+                  fill
+                  sizes="100%"
+                  alt={project.imageAlt}
+                />
               </div>
             </Link>
           ))}

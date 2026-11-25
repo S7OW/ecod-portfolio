@@ -80,9 +80,14 @@ function Page({ id }) {
 
   const seo = useMemo(
     () => ({
-      title: `${currentProject.title} | Amine Azrou`,
-      description: `${currentProject.title} by Amine Azrou.`,
-      keywords: [`${currentProject.title} project`, `${currentProject.title} ${currentProject.category}`, `Amine Azrou ${currentProject.title}`],
+      title: `${currentProject.title} | ECOD`,
+      description: `${currentProject.desc.join(' ')} Project by Amine Azrou (ECOD).`,
+      canonicalPath: `/projects/${currentProject.id}`,
+      ogImage: currentProject.img,
+      ogImageWidth: 1920,
+      ogImageHeight: 1080,
+      ogImageAlt: currentProject.imageAlt,
+      keywords: [currentProject.title, `${currentProject.title} project`, `${currentProject.title} frontend project`, 'Amine Azrou', 'ECOD', ...(currentProject.stack || [])],
     }),
     [currentProject],
   );

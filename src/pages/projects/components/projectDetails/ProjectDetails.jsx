@@ -6,30 +6,30 @@ import styles from '@src/pages/projects/components/projectDetails/styles/project
 function ProjectDetails({ project }) {
   return (
     <div className={styles.root}>
-      <h3 className={clsx(styles.title, 'h3')}>{project.title}</h3>
-      {project.date && <h4 className={clsx(styles.date, 'h4')}>({project.date})</h4>}
+      <h1 className={clsx(styles.title, 'h3')}>{project.title}</h1>
+      {project.date && <p className={clsx(styles.date, 'h4')}>({project.date})</p>}
       <div className={styles.others}>
         <div className={styles.desc}>
           {project.desc.map((des, index) => (
-            <div className="p-l" key={`${project.title}-${index}`}>
+            <p className="p-l" key={`${project.title}-${index}`}>
               {des}
-            </div>
+            </p>
           ))}
         </div>
         {project.stack?.length > 0 && (
           <div className={styles.desc}>
-            <h4 className="h4">Project technologies</h4>
+            <h2 className="h4">Project technologies</h2>
             <p className="p-l">{project.stack.join(' · ')}</p>
           </div>
         )}
         {project.liveLink ? (
           <div className={styles.buttonContainer}>
-            <ButtonLink target href={project.liveLink} label="VISIT LIVE SITE" />
+            <ButtonLink target href={project.liveLink} label="VISIT LIVE SITE" ariaLabel={`Visit the live ${project.title} website`} />
           </div>
         ) : null}
         {project.repoLink ? (
           <div className={styles.buttonContainer}>
-            <ButtonLink target href={project.repoLink} label="VIEW SOURCE CODE" />
+            <ButtonLink target href={project.repoLink} label="VIEW SOURCE CODE" ariaLabel={`View the ${project.title} source code on GitHub`} />
           </div>
         ) : null}
       </div>

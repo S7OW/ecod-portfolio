@@ -3,15 +3,10 @@
 import '@src/styles/global.scss';
 import '@src/styles/global.css';
 
-import * as THREE from 'three';
-
 import { useMemo, useRef } from 'react';
 
 import { Analytics } from '@vercel/analytics/react';
-import Background from '@src/components/canvas/background/Index';
-import { Canvas } from '@react-three/fiber';
-import { EffectComposer } from '@react-three/postprocessing';
-import Fluid from '@src/components/canvas/fluid/Fluid';
+import dynamic from 'next/dynamic';
 import Layout from '@src/components/dom/Layout';
 import Lenis from 'lenis';
 import Loader from '@src/components/dom/Loader';
@@ -19,7 +14,6 @@ import Navbar from '@src/components/dom/navbar/Index';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Scrollbar from '@src/components/dom/Scrollbar';
 import Tempus from '@darkroom.engineering/tempus';
-import { View } from '@react-three/drei';
 import { gsap } from 'gsap';
 import styles from '@src/pages/app.module.scss';
 import useFoucFix from '@src/hooks/useFoucFix';
@@ -28,6 +22,8 @@ import { useIsomorphicLayoutEffect } from '@src/hooks/useIsomorphicLayoutEffect'
 import useScroll from '@src/hooks/useScroll';
 import { useShallow } from 'zustand/react/shallow';
 import { useStore } from '@src/store';
+
+const CanvasLayers = dynamic(() => import('@src/components/canvas/CanvasLayers'), { ssr: false });
 
 if (typeof window !== 'undefined') {
   gsap.defaults({ ease: 'none' });
@@ -89,9 +85,6 @@ function MyApp({ Component, pageProps, router }) {
     () => (
       <>
         <Loader />
-        <div className={styles.background}>
-          <Background />
-        </div>
         <Scrollbar />
         <Navbar />
         <Analytics />
@@ -100,48 +93,11 @@ function MyApp({ Component, pageProps, router }) {
     [],
   );
 
-  const canvasElements = useMemo(
-    () => (
-      <Canvas
-        gl={{
-          pixelRatio: 0.5,
-          outputColorSpace: isAbout === false ? THREE.LinearSRGBColorSpace : THREE.SRGBColorSpace,
-        }}
-        style={{ zIndex: 0 }}
-        resize={{ debounce: { resize: 0, scroll: 0 }, polyfill: undefined }}
-        className={styles.canvasContainer}
-        dpr={[0.5, 1.5]}
-      >
-        <View.Port />
-      </Canvas>
-    ),
-    [isAbout],
-  );
-
   return (
     <div className={styles.root}>
       {domElements}
       <div ref={layoutRef} id="layout" className={styles.layout}>
-        {canvasElements}
-        <Canvas
-          id="fluidCanvas"
-          flat
-          gl={{
-            antialias: false,
-            stencil: false,
-            depth: false,
-            pixelRatio: 0.1,
-          }}
-          style={{ mixBlendMode: 'difference', background: 'black' }}
-          linear
-          className={styles.canvasContainer}
-          eventSource={mainRef.current}
-          dpr={[0.1, 0.5]}
-        >
-          <EffectComposer>
-            <Fluid fluidColor={fluidColor} mainRef={mainRef} />
-          </EffectComposer>
-        </Canvas>
+        <CanvasLayers fluidColor={fluidColor} isAbout={isAbout} mainRef={mainRef} />
         <main ref={mainRef} className={styles.main}>
           <div ref={mainContainerRef} id="mainContainer" className={styles.mainContainer}>
             <Layout layoutRef={layoutRef} mainRef={mainRef} router={router}>

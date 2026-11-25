@@ -147,9 +147,9 @@ function MagicMarbleMaterial({ roughness, color, texture, isSphere }) {
   const rayOrigPos = DEFAULT_RAY_ORIG_POS;
   THREE.Cache.enabled = true;
   const [baseTexture1, baseTexture2, heightVolumeTexture1] = useTexture([
-    '/other/noise1.png',
+    '/other/noise1.webp',
     '/other/peakpx.jpg',
-    '/other/noise2.png',
+    '/other/noise2.webp',
   ]);
 
   const configureTexture = (texture) => {

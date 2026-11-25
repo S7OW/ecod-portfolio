@@ -153,27 +153,27 @@ function Loader() {
   }, [lenis, introOut]);
 
   return (
-    <div id="loader" ref={root} className={clsx(styles.root, 'layout-block-inner')}>
+    <div id="loader" ref={root} aria-hidden="true" className={clsx(styles.root, 'layout-block-inner')}>
       <div className={styles.innerContainer}>
         <div className={styles.fullNameContainer}>
-          <h2 ref={fullNameRef} className={clsx(styles.fullName, 'h2')}>
+          <div ref={fullNameRef} className={clsx(styles.fullName, 'h2')}>
             {introOut ? 'Loading' : 'Amine Azrou'}
-          </h2>
+          </div>
         </div>
 
         {!introOut && (
           <div className={styles.shortNameContainer}>
-            <h2 ref={shortNameRef} className={clsx(styles.shortName, 'h2')}>
+            <div ref={shortNameRef} className={clsx(styles.shortName, 'h2')}>
               Call me ECOD
-            </h2>
+            </div>
           </div>
         )}
 
         {!introOut && (
           <div className={styles.progressContainer}>
-            <h1 ref={progressRef} className={clsx(styles.progress, 'h1')}>
+            <div ref={progressRef} className={clsx(styles.progress, 'h1')}>
               0%
-            </h1>
+            </div>
           </div>
         )}
       </div>

@@ -22,6 +22,16 @@ export default function FloatRigidBody({ totalCount, transparentCount }) {
   const isMobile = useIsMobile();
 
   const [currentAccentIndex, setCurrentAccentIndex] = useState(0);
+  const scratch = useMemo(
+    () => ({
+      targetPosition: new THREE.Vector3(),
+      currentPosition: new THREE.Vector3(),
+      direction: new THREE.Vector3(),
+      currentColor: new THREE.Color(),
+      nextColor: new THREE.Color(),
+    }),
+    [],
+  );
 
   const normalCount = totalCount - transparentCount;
 
@@ -78,29 +88,27 @@ export default function FloatRigidBody({ totalCount, transparentCount }) {
         if (apiNormal.current && body) {
           const t = factors[i] + state.clock.elapsedTime * 0.25;
 
-          const targetPosition = new THREE.Vector3(
+          scratch.targetPosition.set(
             Math.cos(t) + Math.sin(t * 1) / 10 + xFactors[i] + Math.cos((t / 10) * factors[i]) + (Math.sin(t * 1) * factors[i]) / 10,
             Math.sin(t) + Math.cos(t * 2) / 10 + yFactors[i] + Math.sin((t / 10) * factors[i]) + (Math.cos(t * 2) * factors[i]) / 10,
             Math.sin(t) + Math.cos(t * 2) / 10 + zFactors[i] + Math.cos((t / 10) * factors[i]) + (Math.sin(t * 3) * factors[i]) / 4,
           );
 
           const apiTranslation = body.translation();
-          const currentPosition = new THREE.Vector3(apiTranslation.x, apiTranslation.y, apiTranslation.z);
+          scratch.currentPosition.set(apiTranslation.x, apiTranslation.y, apiTranslation.z);
+          scratch.direction.subVectors(scratch.targetPosition, scratch.currentPosition).normalize().multiplyScalar(0.5);
 
-          const direction = new THREE.Vector3().subVectors(targetPosition, currentPosition);
-
-          const forceMagnitude = 0.5;
-          const force = direction.normalize().multiplyScalar(forceMagnitude);
-
-          body.applyImpulse(force, true);
+          body.applyImpulse(scratch.direction, true);
         }
       });
 
-      const newColor = new THREE.Color(accents[currentAccentIndex]);
+      scratch.nextColor.set(accents[currentAccentIndex]);
       for (let i = !isMobile ? 7 : 4; i < normalCount; i++) {
-        const currentColor = new THREE.Color().fromArray(colors.slice(i * 3, (i + 1) * 3));
-        easing.dampC(currentColor, newColor, 0.1, state.delta);
-        colors.set(currentColor.toArray(), i * 3);
+        scratch.currentColor.setRGB(colors[i * 3], colors[i * 3 + 1], colors[i * 3 + 2]);
+        easing.dampC(scratch.currentColor, scratch.nextColor, 0.1, state.delta);
+        colors[i * 3] = scratch.currentColor.r;
+        colors[i * 3 + 1] = scratch.currentColor.g;
+        colors[i * 3 + 2] = scratch.currentColor.b;
       }
 
       if (sphereRef.current && sphereRef.current.geometry.attributes.color) {
@@ -113,21 +121,17 @@ export default function FloatRigidBody({ totalCount, transparentCount }) {
         if (apiTransparent.current && body) {
           const t = factors[normalCount + i] + state.clock.elapsedTime * 0.25;
 
-          const targetPosition = new THREE.Vector3(
+          scratch.targetPosition.set(
             Math.cos(t) + Math.sin(t * 1) / 10 + xFactors[normalCount + i] + Math.cos((t / 10) * factors[normalCount + i]) + (Math.sin(t * 1) * factors[normalCount + i]) / 10,
             Math.sin(t) + Math.cos(t * 2) / 10 + yFactors[normalCount + i] + Math.sin((t / 10) * factors[normalCount + i]) + (Math.cos(t * 2) * factors[normalCount + i]) / 10,
             Math.sin(t) + Math.cos(t * 2) / 10 + zFactors[normalCount + i] + Math.cos((t / 10) * factors[normalCount + i]) + (Math.sin(t * 3) * factors[normalCount + i]) / 4,
           );
 
           const apiTranslation = body.translation();
-          const currentPosition = new THREE.Vector3(apiTranslation.x, apiTranslation.y, apiTranslation.z);
+          scratch.currentPosition.set(apiTranslation.x, apiTranslation.y, apiTranslation.z);
+          scratch.direction.subVectors(scratch.targetPosition, scratch.currentPosition).normalize().multiplyScalar(0.5);
 
-          const direction = new THREE.Vector3().subVectors(targetPosition, currentPosition);
-
-          const forceMagnitude = 0.5;
-          const force = direction.normalize().multiplyScalar(forceMagnitude);
-
-          body.applyImpulse(force, true);
+          body.applyImpulse(scratch.direction, true);
         }
       });
     }

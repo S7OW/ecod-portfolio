@@ -138,7 +138,7 @@ function MenuLinks() {
     ));
 
   return (
-    <nav id="menu" ref={menuRef} className={styles.menu}>
+    <nav id="menu" ref={menuRef} aria-label="Main menu" className={styles.menu}>
       <div className={clsx(styles.menuWrapper, 'layout-block-inner')}>
         <div
           ref={(el) => {

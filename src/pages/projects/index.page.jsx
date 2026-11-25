@@ -16,11 +16,14 @@ import { useStore } from '@src/store';
 import { useWindowSize } from '@darkroom.engineering/hamo';
 
 const seo = {
-  title: 'Frontend Projects | Amine Azrou',
-  description: 'Frontend projects by Amine Azrou, including Lawliet Portfolio and Apple Codes.',
+  title: 'Frontend Development Projects | ECOD',
+  description: 'Explore frontend projects by Amine Azrou (ECOD), including the Lawliet Portfolio and Apple Codes websites. View project details, live demos and source repositories.',
+  canonicalPath: '/projects',
   keywords: [
+    'ECOD Projects',
     'Amine Azrou Projects',
-    'Frontend Portfolio',
+    'Frontend Development Projects',
+    'Frontend Portfolio Projects',
     'Lawliet Portfolio',
     'Apple Codes',
     'Next.js',
@@ -86,7 +89,7 @@ function Page() {
       <section ref={rootRef} className={clsx(styles.root, 'layout-block-inner')}>
         <div className={styles.innerContainer}>
           {frontendProjects.map((project, index) => (
-            <Link aria-label={`Go ${project.title}`} id={project.id} key={project.id} scroll={false} href={project.link} className={clsx(styles.card)}>
+            <Link aria-label={`View ${project.title} project`} id={project.id} key={project.id} scroll={false} href={project.link} className={clsx(styles.card)}>
               <div
                 style={
                   !isMobile
@@ -104,10 +107,10 @@ function Page() {
                 <div className={clsx(styles.container, 'layout-grid-inner')}>
                   <div className={styles.projectsDetails}>
                     {project.date && <h6 className={clsx(styles.text, 'h6')}>{project.date}</h6>}
-                    <h3 className={clsx(styles.text, 'h3')}>{project.title}</h3>
+                    <h2 className={clsx(styles.text, 'h3')}>{project.title}</h2>
                   </div>
                   <div className={styles.imageContainer}>
-                    <Image priority={index === 0} sizes="100%" src={project.img} fill alt={project.title} />
+                    <Image priority={index === 0} sizes="100%" src={project.img} fill alt={project.imageAlt} />
                   </div>
                 </div>
               </div>
@@ -123,7 +126,7 @@ function Page() {
                   className={index === 0 ? styles.firstCard : index === frontendProjects.length - 1 ? styles.lastCard : undefined}
                   src={project.img}
                   fill
-                  alt={project.title}
+                  alt={project.imageAlt}
                 />
               </div>
             </Link>

@@ -8,9 +8,9 @@ function NextProject({ nextProject }) {
   return (
     <>
       <section className={clsx(styles.titleContainer, 'layout-block-inner')}>
-        <h1 className={clsx(styles.title, 'h1')}>
+        <h2 className={clsx(styles.title, 'h1')}>
           <AppearByWords>Next Project</AppearByWords>
-        </h1>
+        </h2>
       </section>
       <section className={clsx(styles.nextRoot, 'layout-block-inner')}>
         <div className={styles.innerContainer}>
@@ -23,13 +23,13 @@ function NextProject({ nextProject }) {
                   <h3 className={clsx(styles.text, 'h3')}>{nextProject.title}</h3>
                 </div>
                 <div className={styles.imageContainer}>
-                  <Image priority sizes="100%" src={nextProject.img} fill alt={nextProject.title} />
+                  <Image sizes="100%" src={nextProject.img} fill alt={nextProject.imageAlt} />
                 </div>
               </div>
             </div>
 
             <div className={styles.canvas}>
-              <Image priority sizes="100%" src={nextProject.img} fill alt={nextProject.title} />
+              <Image sizes="100%" src={nextProject.img} fill alt={nextProject.imageAlt} />
             </div>
           </Link>
         </div>

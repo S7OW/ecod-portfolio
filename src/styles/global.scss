@@ -23,11 +23,6 @@ main.lenis-stopped {
 
 body {
   -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
   max-height: 100%;
   overflow: hidden;
 
@@ -73,6 +68,13 @@ textarea,
 select {
   color: inherit;
   cursor: pointer;
+}
+
+a:focus-visible,
+button:focus-visible,
+[role='button']:focus-visible {
+  outline: 2px solid #f2ffbd;
+  outline-offset: 4px;
 }
 
 section {

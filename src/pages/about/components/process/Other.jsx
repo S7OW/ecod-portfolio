@@ -130,7 +130,11 @@ const Other = memo(({ setPortals }) => {
 
   const handleMouseEnter = useCallback((index, optionIndex, option) => {
     if (typeof window !== 'undefined') {
-      gsap.to(optionTitlesRef.current[index][optionIndex], { color: '#28282b', duration: 0.35, ease: 'none' });
+      gsap.to(optionTitlesRef.current[index][optionIndex], {
+        color: '#28282b',
+        duration: 0.35,
+        ease: 'none',
+      });
 
       const element = document.querySelector('main');
       element?.classList.toggle('color-change');
@@ -143,18 +147,29 @@ const Other = memo(({ setPortals }) => {
         const existingPortal = prevPortals.findIndex((portal) => portal.title === option.title);
         if (existingPortal !== -1) {
           const newPortals = [...prevPortals];
-          newPortals[existingPortal] = { ...newPortals[existingPortal], fadeIn: true };
+          newPortals[existingPortal] = {
+            ...newPortals[existingPortal],
+            fadeIn: true,
+          };
           return newPortals;
         }
 
-        const newPortal = { title: option.title, desc: option.desc, fadeIn: true };
+        const newPortal = {
+          title: option.title,
+          desc: option.desc,
+          fadeIn: true,
+        };
         return [...prevPortals, newPortal];
       });
     }
   }, []);
 
   const handleMouseLeave = useCallback((index, optionIndex, option) => {
-    gsap.to(optionTitlesRef.current[index][optionIndex], { color: 'unset', duration: 0.35, ease: 'none' });
+    gsap.to(optionTitlesRef.current[index][optionIndex], {
+      color: 'unset',
+      duration: 0.35,
+      ease: 'none',
+    });
 
     const element = document?.querySelector('main');
 
@@ -172,7 +187,10 @@ const Other = memo(({ setPortals }) => {
         return prevPortals;
       }
       const newPortals = [...prevPortals];
-      newPortals[existingPortal] = { ...newPortals[existingPortal], fadeIn: false };
+      newPortals[existingPortal] = {
+        ...newPortals[existingPortal],
+        fadeIn: false,
+      };
       return newPortals;
     });
   }, []);
@@ -180,9 +198,9 @@ const Other = memo(({ setPortals }) => {
   return (
     <section ref={rootRef} className={clsx(styles.root, 'layout-block-inner')}>
       <div className={styles.topContainer}>
-        <h1 className={clsx(styles.text, 'h1')}>
+        <h2 className={clsx(styles.text, 'h1')}>
           <AppearByWords>Learning & Credentials</AppearByWords>
-        </h1>
+        </h2>
       </div>
 
       <div className={styles.processContainer}>
@@ -228,7 +246,7 @@ const Other = memo(({ setPortals }) => {
 
               <div className={styles.innerContainer}>
                 <AppearTitle>
-                  <h6 className="h6">{category.bigTitle}</h6>
+                  <h3 className="h6">{category.bigTitle}</h3>
                 </AppearTitle>
                 {isMobile ? (
                   <AppearTitle>

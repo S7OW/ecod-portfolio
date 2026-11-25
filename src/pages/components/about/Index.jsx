@@ -42,7 +42,7 @@ function About() {
 
   const renderImageContainer = () => (
     <div className={styles.imageContainer}>
-      <Image priority src="/images/defaults/profilepic.jpg" sizes="100%" fill alt="Profile portrait" />
+      <Image priority src="/images/defaults/profilepic.jpg" sizes="100vw" fill alt="Portrait of Amine Azrou, known professionally as ECOD" />
     </div>
   );
 
@@ -50,7 +50,7 @@ function About() {
     <section ref={rootRef} className={styles.root}>
       <div className={clsx(styles.nameContainer, 'layout-block-inner')}>
         <AppearTitle>
-          <h1 className={clsx('h1', 'medium')}>Hey, ECOD here!</h1>
+          <h2 className={clsx('h1', 'medium')}>Hey, ECOD here!</h2>
         </AppearTitle>
       </div>
 
