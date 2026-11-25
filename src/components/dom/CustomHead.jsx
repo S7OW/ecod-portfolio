@@ -33,6 +33,7 @@ function CustomHead({
       <meta key="robots" name="robots" content={robots} />
       <meta key="author" name="author" content="Amine Azrou" />
       <meta key="google-site-verification" name="google-site-verification" content="T7SX3Ipc9qVtiqS4cV9h-QWlvvZCRPBY776Ee4pb59Q" />
+      <meta key="google-site-verification-new" name="google-site-verification" content="szeSROTeKfJYUJttMCv5k7GnKX0qPFvzzk3sfe4yBT8" />
       <meta key="geo-region" name="geo.region" content="DZ" />
       <meta key="referrer" name="referrer" content="strict-origin-when-cross-origin" />
       <meta key="theme-color" name="theme-color" content="#28282b" />
