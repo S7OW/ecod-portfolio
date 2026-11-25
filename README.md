@@ -2,7 +2,9 @@
 
 This is the **original source code** for [giats.me](https://giats.me), the personal portfolio website of **Evangelos Giatsidis**.
 
-> 🏆 **Multi-award-winning site, featured on major design platforms**:
+I designed and built this project from scratch using modern web technologies to push the creative limits of front-end development. The site blends smooth animation, layered visuals, and technical precision to present my work in a unique and immersive way.
+
+> **Multi-award-winning site, featured on major design platforms**:
 >
 > - 🥇 [CSS Design Awards — WOTD + 3 Special Kudos](https://www.cssdesignawards.com/sites/giats-portfolio/46067/)
 > - 🥈 [Awwwards — Honorable Mention](https://www.awwwards.com/sites/https-giats-me)
