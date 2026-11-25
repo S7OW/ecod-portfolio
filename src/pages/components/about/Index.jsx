@@ -58,9 +58,10 @@ function About() {
         {isMobile ? renderImageContainer() : null}
         <div className={clsx(styles.descWrapper)} ref={animatedImageRef}>
           <AppearTitle>
-            <div className="p-l">“Frontend Developer &</div>
-            <div className="p-l">Cisco Network Designer,</div>
-            <div className="p-l">based in Algeria.”</div>
+            <div className="p-l">“I’m focused on learning, creating, and constantly refining my craft.</div>
+            <div className="p-l">I believe in taking things one step at a time, staying curious,</div>
+            <div className="p-l">and building things that speak for themselves. There’s always</div>
+            <div className="p-l">room to grow, and that’s what keeps me moving forward.”</div>
           </AppearTitle>
         </div>
         {!isMobile ? renderImageContainer() : null}
