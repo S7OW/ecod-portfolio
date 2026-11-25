@@ -234,8 +234,8 @@ function Home() {
     <section ref={rootRef} className={clsx(styles.root)}>
       <div className={clsx(styles.topContainer, 'layout-grid-inner')}>
         <div className={styles.leftContainer}>
-          <h1 className="h2">Frontend Developer</h1>
-          <h2 className={clsx('h2', 'bold')}>Cisco Network Designer</h2>
+          <h1 className="h2">Remarkable</h1>
+          <h2 className={clsx('h2', 'bold')}>Virtual Experiences</h2>
         </div>
         {!isMobile && (
           <p className={clsx('h6', styles.rightContainer)}>
