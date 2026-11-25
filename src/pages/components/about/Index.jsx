@@ -50,7 +50,7 @@ function About() {
     <section ref={rootRef} className={styles.root}>
       <div className={clsx(styles.nameContainer, 'layout-block-inner')}>
         <AppearTitle>
-          <h2 className={clsx('h1', 'medium')}>Hey, ECOD here!</h2>
+          <h2 className={clsx('h1', 'medium')}>Hey, My name's Amine</h2>
         </AppearTitle>
       </div>
 
@@ -58,10 +58,10 @@ function About() {
         {isMobile ? renderImageContainer() : null}
         <div className={clsx(styles.descWrapper)} ref={animatedImageRef}>
           <AppearTitle>
-            <div className="p-l">“I’m focused on learning, creating, and constantly refining my craft.</div>
-            <div className="p-l">I believe in taking things one step at a time, staying curious,</div>
-            <div className="p-l">and building things that speak for themselves.</div>
-            <div className="p-l">There’s always room to grow, and that’s what keeps me moving forward.”</div>
+            <div className="p-l">“My solo learning journey as a self-taught</div>
+            <div className="p-l">developer empowers me to solve problems</div>
+            <div className="p-l">creatively and efficienty, supporting the</div>
+            <div className="p-l">successful completion of your project goals”</div>
           </AppearTitle>
         </div>
         {!isMobile ? renderImageContainer() : null}
