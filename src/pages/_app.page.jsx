@@ -7,6 +7,7 @@ import { useMemo, useRef } from 'react';
 
 import { Analytics } from '@vercel/analytics/react';
 import dynamic from 'next/dynamic';
+import Background from '@src/components/canvas/background/Index';
 import Layout from '@src/components/dom/Layout';
 import Lenis from 'lenis';
 import Loader from '@src/components/dom/Loader';
@@ -85,6 +86,9 @@ function MyApp({ Component, pageProps, router }) {
     () => (
       <>
         <Loader />
+        <div className={styles.background}>
+          <Background />
+        </div>
         <Scrollbar />
         <Navbar />
         <Analytics />

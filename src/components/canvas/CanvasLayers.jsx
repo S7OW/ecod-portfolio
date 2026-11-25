@@ -2,16 +2,12 @@ import * as THREE from 'three';
 import { Canvas } from '@react-three/fiber';
 import { EffectComposer } from '@react-three/postprocessing';
 import Fluid from '@src/components/canvas/fluid/Fluid';
-import Background from '@src/components/canvas/background/Index';
 import { View } from '@react-three/drei';
 import styles from '@src/pages/app.module.scss';
 
 function CanvasLayers({ fluidColor, isAbout, mainRef }) {
   return (
     <>
-      <div className={styles.background}>
-        <Background />
-      </div>
       <Canvas
         gl={{
           pixelRatio: 0.5,
