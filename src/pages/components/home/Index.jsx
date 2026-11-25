@@ -239,8 +239,7 @@ function Home() {
         </div>
         {!isMobile && (
           <p className={clsx('h6', styles.rightContainer)}>
-            I&apos;m Amine Azrou (ECOD), a self-taught frontend developer in Algeria and Cisco Network Designer. I build responsive React and JavaScript interfaces and explore network topology design
-            with Cisco Packet Tracer.
+            I&apos;m With few months of experience, I create immersive digital enviroments that elevate your virtual presence.
           </p>
         )}
       </div>
@@ -261,8 +260,7 @@ function Home() {
       {isMobile && (
         <div className={styles.rightContainerMobile}>
           <p className="h6">
-            I&apos;m Amine Azrou (ECOD), a self-taught frontend developer in Algeria and Cisco Network Designer. I build responsive React and JavaScript interfaces and explore network topology design
-            with Cisco Packet Tracer.
+            I&apos;m With few months of experience, I create immersive digital enviroments that elevate your virtual presence.
           </p>
         </div>
       )}
