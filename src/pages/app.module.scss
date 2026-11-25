@@ -38,7 +38,10 @@
   .main {
     flex-grow: 1;
     z-index: 1;
-    opacity: 0;
+    // The opaque loader fully covers the page during its intro animation.
+    // Keep the server-rendered page painted underneath so it can become LCP
+    // without changing what the visitor sees during the intro.
+    opacity: 1;
     top: 0;
     left: 0;
     position: fixed;

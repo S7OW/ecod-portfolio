@@ -3,11 +3,10 @@
 import '@src/styles/global.scss';
 import '@src/styles/global.css';
 
-import { useMemo, useRef } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 
 import { Analytics } from '@vercel/analytics/react';
 import dynamic from 'next/dynamic';
-import Background from '@src/components/canvas/background/Index';
 import Layout from '@src/components/dom/Layout';
 import Lenis from 'lenis';
 import Loader from '@src/components/dom/Loader';
@@ -25,6 +24,7 @@ import { useShallow } from 'zustand/react/shallow';
 import { useStore } from '@src/store';
 
 const CanvasLayers = dynamic(() => import('@src/components/canvas/CanvasLayers'), { ssr: false });
+const Background = dynamic(() => import('@src/components/canvas/background/Index'), { ssr: false });
 
 if (typeof window !== 'undefined') {
   gsap.defaults({ ease: 'none' });
@@ -49,7 +49,8 @@ function MyApp({ Component, pageProps, router }) {
   const layoutRef = useRef();
 
   useFoucFix();
-  useScroll(() => ScrollTrigger.update());
+  const updateScrollTrigger = useCallback(() => ScrollTrigger.update(), []);
+  useScroll(updateScrollTrigger);
 
   useIsomorphicLayoutEffect(() => {
     // eslint-disable-next-line no-shadow

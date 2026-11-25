@@ -2,7 +2,7 @@ import { useIsomorphicLayoutEffect } from '@src/hooks/useIsomorphicLayoutEffect'
 import { useShallow } from 'zustand/react/shallow';
 import { useStore } from '@src/store';
 
-function useScroll(callback, deps = []) {
+function useScroll(callback) {
   const [lenis] = useStore(useShallow((state) => [state.lenis]));
 
   useIsomorphicLayoutEffect(() => {
@@ -13,6 +13,6 @@ function useScroll(callback, deps = []) {
     return () => {
       lenis.off('scroll', callback);
     };
-  }, [lenis, callback, [...deps]]);
+  }, [lenis, callback]);
 }
 export default useScroll;

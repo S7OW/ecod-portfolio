@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 import Link from 'next/link';
 import clsx from 'clsx';
@@ -24,50 +24,66 @@ function MenuLinks() {
   const menuLinksItemsRef = useRef([]);
   const router = useRouter();
 
-  const setupMenuAnimation = (gsapTimeline, refs) => {
-    const fluidCanvas = document?.getElementById('fluidCanvas');
-    const layout = document?.getElementById('layout');
-    const scrollbar = document?.getElementById('scrollbar');
-    const header = document?.querySelector('header');
+  const setupMenuAnimation = useCallback(
+    (gsapTimeline, refs) => {
+      const fluidCanvas = document?.getElementById('fluidCanvas');
+      const layout = document?.getElementById('layout');
+      const scrollbar = document?.getElementById('scrollbar');
+      const header = document?.querySelector('header');
 
-    gsap.set(refs.menuRef.current, { pointerEvents: 'none', autoAlpha: 0 });
-    gsap.set(refs.menuLinksItemsRef.current, { x: '-100%' });
+      gsap.set(refs.menuRef.current, {
+        pointerEvents: 'none',
+        opacity: 0,
+        visibility: 'hidden',
+      });
+      gsap.set(refs.menuLinksItemsRef.current, { x: '-100%' });
 
-    gsapTimeline
-      .to(refs.menuRef.current, { autoAlpha: 1, stagger: 0.01, pointerEvents: 'auto' }, 0)
-      .to(fluidCanvas, { duration: 0, opacity: 0 }, 0)
-      .to(refs.menuLinksItemsRef.current, { x: 0, stagger: 0.016, pointerEvents: 'auto' }, 0)
-      .to(
-        'main',
-        {
-          borderRadius: '1.3888888889vw',
-          border: '2px solid #f0f4f1',
-          scale: 0.9,
-          pointerEvents: 'none',
-          left: '-40vw',
-        },
-        0,
-      )
-      .to(layout, { opacity: isMobile ? 0.05 : 0.3, height: '90svh' }, 0)
-      .to(scrollbar, { opacity: 0, right: '46vw', scale: 0.9 }, 0)
-      .to(
-        header,
-        {
-          autoAlpha: 0,
-          left: '-40vw',
-          top: isMobile ? '6vw' : '3vw',
-          scale: 0.9,
-          overwrite: true,
-        },
-        0,
-      );
-  };
+      gsapTimeline
+        .to(refs.menuRef.current, { opacity: 1, stagger: 0.01, pointerEvents: 'auto' }, 0)
+        .to(fluidCanvas, { duration: 0, opacity: 0 }, 0)
+        .to(refs.menuLinksItemsRef.current, { x: 0, stagger: 0.016, pointerEvents: 'auto' }, 0)
+        .to(
+          'main',
+          {
+            borderRadius: '1.3888888889vw',
+            border: '2px solid #f0f4f1',
+            scale: 0.9,
+            pointerEvents: 'none',
+            left: '-40vw',
+          },
+          0,
+        )
+        .to(layout, { opacity: isMobile ? 0.05 : 0.3, height: '90svh' }, 0)
+        .to(scrollbar, { opacity: 0, right: '46vw', scale: 0.9 }, 0)
+        .to(
+          header,
+          {
+            autoAlpha: 0,
+            left: '-40vw',
+            top: isMobile ? '6vw' : '3vw',
+            scale: 0.9,
+            overwrite: true,
+          },
+          0,
+        );
+
+      gsapTimeline.eventCallback('onReverseComplete', () => {
+        if (refs.menuRef.current) {
+          gsap.set(refs.menuRef.current, {
+            visibility: 'hidden',
+            pointerEvents: 'none',
+          });
+        }
+      });
+    },
+    [isMobile],
+  );
 
   useEffect(() => {
     const tl = timeline.current;
     const refs = { menuRef, menuLinksItemsRef };
     const ctx = gsap.context(() => {
-      setupMenuAnimation(tl, refs, isMobile);
+      setupMenuAnimation(tl, refs);
     });
 
     return () => {
@@ -76,11 +92,12 @@ function MenuLinks() {
       }
       ctx.kill();
     };
-  }, [isLoading, isMobile]);
+  }, [isLoading, isMobile, setupMenuAnimation]);
 
   useEffect(() => {
     const tl = timeline.current;
     if (isMenuOpen) {
+      gsap.set(menuRef.current, { visibility: 'visible' });
       tl.play();
     } else {
       tl.reverse();
@@ -138,7 +155,7 @@ function MenuLinks() {
     ));
 
   return (
-    <nav id="menu" ref={menuRef} aria-label="Main menu" className={styles.menu}>
+    <nav id="menu" ref={menuRef} aria-label="Main menu" aria-hidden={!isMenuOpen} className={styles.menu}>
       <div className={clsx(styles.menuWrapper, 'layout-block-inner')}>
         <div
           ref={(el) => {

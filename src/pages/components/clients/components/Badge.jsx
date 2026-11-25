@@ -5,12 +5,19 @@ import { BallCollider, CuboidCollider, Physics, RigidBody, useRopeJoint, useSphe
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline';
 import { PerspectiveCamera, View, useGLTF, useTexture } from '@react-three/drei';
 import { extend, useFrame } from '@react-three/fiber';
-import { useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 
 import { useIntersection } from 'react-use';
 import useScroll from '@src/hooks/useScroll';
 
 extend({ MeshLineGeometry, MeshLineMaterial });
+
+function updateJoint(joint, delta, minSpeed, maxSpeed) {
+  if (!joint.current.lerped) joint.current.lerped = new THREE.Vector3().copy(joint.current.translation());
+  const translation = joint.current.translation();
+  const clampedDistance = Math.max(0.1, Math.min(1, joint.current.lerped.distanceTo(translation)));
+  joint.current.lerped.lerp(translation, delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed)));
+}
 
 export default function Badge({ name }) {
   const el = useRef();
@@ -28,7 +35,7 @@ export default function Badge({ name }) {
     >
       <PerspectiveCamera makeDefault position={[0, 0, 10]} fov={25} />
       <ambientLight intensity={Math.PI} />
-      <Physics interpolate gravity={[0, -40, 0]} timeStep={1 / 60}>
+      <Physics paused={!intersection?.isIntersecting} interpolate gravity={[0, -40, 0]} timeStep={1 / 60}>
         <Band name={name} intersected={intersection?.isIntersecting} />
       </Physics>
       <ambientLight intensity={1.3} />
@@ -72,6 +79,7 @@ function Band({ maxSpeed = 50, minSpeed = 10, name, intersected }) {
   const tag = useTexture(`/model/Tag${name}.png`);
 
   const [curve] = useState(() => new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()]));
+  const curvePoints = useMemo(() => Array.from({ length: 33 }, () => new THREE.Vector3()), []);
 
   const scrollDirection = useRef(0);
   const isScrolling = useRef(false);
@@ -82,32 +90,37 @@ function Band({ maxSpeed = 50, minSpeed = 10, name, intersected }) {
   useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 1]);
   useSphericalJoint(j3, card, [[0, 0, 0], [0, 1.45, 0]]);
 
-  useScroll(({ direction, isScrolling: useScrolling, velocity }) => {
+  const onScroll = useCallback(({ direction, isScrolling: useScrolling, velocity }) => {
     scrollDirection.current = direction;
     isScrolling.current = useScrolling;
     speed.current = velocity;
-  });
+  }, []);
+
+  useScroll(onScroll);
 
   useFrame((state, delta) => {
+    if (!intersected) return;
+
     if (isScrolling.current && intersected) {
       const moveDistance = Math.abs(speed.current) * 0.005;
       const directionVector = scrollDirection.current === 1 ? 1 : -1;
       card.current.applyImpulse({ x: directionVector * moveDistance, y: 0, z: 0 }, true);
     }
     if (fixed.current) {
-       [j1, j2].forEach((ref) => {
-        if (!ref.current.lerped) ref.current.lerped = new THREE.Vector3().copy(ref.current.translation());
-        const clampedDistance = Math.max(0.1, Math.min(1, ref.current.lerped.distanceTo(ref.current.translation())));
-        ref.current.lerped.lerp(ref.current.translation(), delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed)));
-      });
+      updateJoint(j1, delta, minSpeed, maxSpeed);
+      updateJoint(j2, delta, minSpeed, maxSpeed);
       curve.points[0].copy(j3.current.translation());
       curve.points[1].copy(j2.current.lerped);
       curve.points[2].copy(j1.current.lerped);
       curve.points[3].copy(fixed.current.translation());
-      band.current.geometry.setPoints(curve.getPoints(32));
+      for (let i = 0; i < curvePoints.length; i += 1) {
+        curve.getPoint(i / (curvePoints.length - 1), curvePoints[i]);
+      }
+      band.current.geometry.setPoints(curvePoints);
       ang.copy(card.current.angvel());
       rot.copy(card.current.rotation());
-      card.current.setAngvel({ x: ang.x, y: ang.y - rot.y * 0.25, z: ang.z });
+      rot.y = ang.y - rot.y * 0.25;
+      card.current.setAngvel(rot);
     }
   });
 

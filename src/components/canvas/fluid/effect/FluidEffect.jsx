@@ -21,8 +21,8 @@ class FluidEffect extends Effect {
       intensity,
       fluidColor,
       backgroundColor,
-      cachedFluidColor: hexToRgb(fluidColor),
-      cachedBackgroundColor: hexToRgb(backgroundColor),
+      cachedFluidColor: fluidColor,
+      cachedBackgroundColor: backgroundColor,
     };
   }
 
@@ -34,16 +34,14 @@ class FluidEffect extends Effect {
   }
 
   update() {
-    const newFluidColor = hexToRgb(this.state.fluidColor);
-    if (newFluidColor !== this.state.cachedFluidColor) {
-      this.state.cachedFluidColor = newFluidColor;
-      this.updateUniform('uColor', newFluidColor);
+    if (this.state.fluidColor !== this.state.cachedFluidColor) {
+      this.state.cachedFluidColor = this.state.fluidColor;
+      this.updateUniform('uColor', hexToRgb(this.state.fluidColor));
     }
 
-    const newBackgroundColor = hexToRgb(this.state.backgroundColor);
-    if (newBackgroundColor !== this.state.cachedBackgroundColor) {
-      this.state.cachedBackgroundColor = newBackgroundColor;
-      this.updateUniform('uBackgroundColor', newBackgroundColor);
+    if (this.state.backgroundColor !== this.state.cachedBackgroundColor) {
+      this.state.cachedBackgroundColor = this.state.backgroundColor;
+      this.updateUniform('uBackgroundColor', hexToRgb(this.state.backgroundColor));
     }
 
     this.updateUniform('uIntensity', this.state.intensity);

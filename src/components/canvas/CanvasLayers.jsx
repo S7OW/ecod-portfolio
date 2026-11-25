@@ -22,6 +22,7 @@ function CanvasLayers({ fluidColor, isAbout, mainRef }) {
       </Canvas>
       <Canvas
         id="fluidCanvas"
+        frameloop="demand"
         flat
         gl={{
           antialias: false,

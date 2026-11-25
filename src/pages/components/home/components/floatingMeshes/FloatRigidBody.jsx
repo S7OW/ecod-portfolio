@@ -83,13 +83,15 @@ export default function FloatRigidBody({ totalCount, transparentCount }) {
   }, []);
 
   useFrame((state) => {
-    if (apiNormal.current) {
-      apiNormal.current.forEach((body, i) => {
-        if (apiNormal.current && body) {
+    const normalBodies = apiNormal.current;
+    if (normalBodies) {
+      for (let i = 0; i < normalBodies.length; i += 1) {
+        const body = normalBodies[i];
+        if (body) {
           const t = factors[i] + state.clock.elapsedTime * 0.25;
 
           scratch.targetPosition.set(
-            Math.cos(t) + Math.sin(t * 1) / 10 + xFactors[i] + Math.cos((t / 10) * factors[i]) + (Math.sin(t * 1) * factors[i]) / 10,
+            Math.cos(t) + Math.sin(t) / 10 + xFactors[i] + Math.cos((t / 10) * factors[i]) + (Math.sin(t) * factors[i]) / 10,
             Math.sin(t) + Math.cos(t * 2) / 10 + yFactors[i] + Math.sin((t / 10) * factors[i]) + (Math.cos(t * 2) * factors[i]) / 10,
             Math.sin(t) + Math.cos(t * 2) / 10 + zFactors[i] + Math.cos((t / 10) * factors[i]) + (Math.sin(t * 3) * factors[i]) / 4,
           );
@@ -100,31 +102,42 @@ export default function FloatRigidBody({ totalCount, transparentCount }) {
 
           body.applyImpulse(scratch.direction, true);
         }
-      });
+      }
 
       scratch.nextColor.set(accents[currentAccentIndex]);
+      let colorsChanged = false;
       for (let i = !isMobile ? 7 : 4; i < normalCount; i++) {
         scratch.currentColor.setRGB(colors[i * 3], colors[i * 3 + 1], colors[i * 3 + 2]);
         easing.dampC(scratch.currentColor, scratch.nextColor, 0.1, state.delta);
-        colors[i * 3] = scratch.currentColor.r;
-        colors[i * 3 + 1] = scratch.currentColor.g;
-        colors[i * 3 + 2] = scratch.currentColor.b;
+        const colorIndex = i * 3;
+        const red = Math.fround(scratch.currentColor.r);
+        const green = Math.fround(scratch.currentColor.g);
+        const blue = Math.fround(scratch.currentColor.b);
+        if (colors[colorIndex] !== red || colors[colorIndex + 1] !== green || colors[colorIndex + 2] !== blue) {
+          colorsChanged = true;
+        }
+        colors[colorIndex] = red;
+        colors[colorIndex + 1] = green;
+        colors[colorIndex + 2] = blue;
       }
 
-      if (sphereRef.current && sphereRef.current.geometry.attributes.color) {
+      if (colorsChanged && sphereRef.current && sphereRef.current.geometry.attributes.color) {
         sphereRef.current.geometry.attributes.color.needsUpdate = true;
       }
     }
 
-    if (apiTransparent.current) {
-      apiTransparent.current.forEach((body, i) => {
-        if (apiTransparent.current && body) {
-          const t = factors[normalCount + i] + state.clock.elapsedTime * 0.25;
+    const transparentBodies = apiTransparent.current;
+    if (transparentBodies) {
+      for (let i = 0; i < transparentBodies.length; i += 1) {
+        const body = transparentBodies[i];
+        if (body) {
+          const index = normalCount + i;
+          const t = factors[index] + state.clock.elapsedTime * 0.25;
 
           scratch.targetPosition.set(
-            Math.cos(t) + Math.sin(t * 1) / 10 + xFactors[normalCount + i] + Math.cos((t / 10) * factors[normalCount + i]) + (Math.sin(t * 1) * factors[normalCount + i]) / 10,
-            Math.sin(t) + Math.cos(t * 2) / 10 + yFactors[normalCount + i] + Math.sin((t / 10) * factors[normalCount + i]) + (Math.cos(t * 2) * factors[normalCount + i]) / 10,
-            Math.sin(t) + Math.cos(t * 2) / 10 + zFactors[normalCount + i] + Math.cos((t / 10) * factors[normalCount + i]) + (Math.sin(t * 3) * factors[normalCount + i]) / 4,
+            Math.cos(t) + Math.sin(t) / 10 + xFactors[index] + Math.cos((t / 10) * factors[index]) + (Math.sin(t) * factors[index]) / 10,
+            Math.sin(t) + Math.cos(t * 2) / 10 + yFactors[index] + Math.sin((t / 10) * factors[index]) + (Math.cos(t * 2) * factors[index]) / 10,
+            Math.sin(t) + Math.cos(t * 2) / 10 + zFactors[index] + Math.cos((t / 10) * factors[index]) + (Math.sin(t * 3) * factors[index]) / 4,
           );
 
           const apiTranslation = body.translation();
@@ -133,7 +146,7 @@ export default function FloatRigidBody({ totalCount, transparentCount }) {
 
           body.applyImpulse(scratch.direction, true);
         }
-      });
+      }
     }
   });
 

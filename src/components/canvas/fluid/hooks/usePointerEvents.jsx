@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 
 import { Vector2 } from 'three';
 
-const usePointerEvents = (mainRef, size, force) => {
+const usePointerEvents = (mainRef, size, force, invalidate) => {
   const splatStack = useRef([]);
   const lastMouse = useRef(new Vector2());
   const hasMoved = useRef(false);
@@ -37,6 +37,7 @@ const usePointerEvents = (mainRef, size, force) => {
         velocityX: deltaX * force,
         velocityY: -deltaY * force,
       });
+      invalidate();
     };
 
     element.addEventListener('pointermove', handlePointerMove, { passive: true });
@@ -44,7 +45,7 @@ const usePointerEvents = (mainRef, size, force) => {
     return () => {
       element.removeEventListener('pointermove', handlePointerMove);
     };
-  }, [mainRef, size, force]);
+  }, [mainRef, size, force, invalidate]);
 
   return splatStack;
 };
